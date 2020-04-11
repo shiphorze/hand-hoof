@@ -1,0 +1,77 @@
+﻿#Hand and Hoof 
+# The script of the game goes in this file.
+
+# Declare characters used by this game. The color argument colorizes the name of the character.
+
+#Characters
+define narrator = Character("...")
+define player = Character("[pfn]")
+define dev = Character("Developer")
+
+#Player pronouns
+#sfc = subject form with capital at beginning (She, He, They)
+#sfl = subject form in all lowercase (she, he, they)
+#pf = possessive form (her, his, their)
+#verb (is, are)
+#of = object form (her, him, them)
+
+#Name lists
+define jojo_names = ["Jotaro","Kakyoin"]
+
+# The game starts here.
+
+label start:
+
+    #asking player for name
+    #pfn = player first name
+    #pmn = player middle name
+    #pln = player last name
+
+    python:
+        pfn = renpy.input("What is your first name?")
+        pfn = pfn.strip()
+
+        if not pfn:
+            pfn = "Blair"
+        
+        if pfn in jojo_names:
+            developer "Oho! I see what you did there!"
+
+        pmn = renpy.input("What is your middle name?")
+        pmn = pmn.strip()
+
+        if not pmn:
+            pmn = "Rexy"
+
+        pln = renpy.input("What is your last name?")
+        pln = pln.strip()
+
+        if not pln:
+            pln = "Bells"
+
+    if [pfn] in jojo_names:
+        dev "Oho! I see what you did there!"
+
+    menu:
+        "What are your pronouns?"
+
+        "They/them":
+            $ sfc = "They"
+            $ sfl = "they"
+            $ verb = "are"
+            $ pf = "their"
+            $ of = "them"
+        "She/her":
+            $ sfc = "She"
+            $ sfl = "she"
+            $ verb = "is"
+            $ pf = "her"
+            $ of = "her"
+        "He/him":
+            $ sfc = "He"
+            $ sfl = "he"
+            $ verb = "is"
+            $ pf = "his"
+            $ of = "him"
+
+    return
