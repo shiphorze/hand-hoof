@@ -161,6 +161,20 @@ label start:
             n "{i}You climb in and sit down while Shelley walks around to the other side and climbs in herself.{/i}"
             n "{i}Shelley powers on her truck and starts backing up.{/i}"
             shell "To Green Rain Ranch we go!"
+            n "{i}You and Shelley are on the road for about 10 minutes.{/i}"
+            n "{i}Then you spot a welcome sign on the right side of the road and Shelley turns the vehicle into the road where it stands.{/i}"
+            n "{i}The two of you head down that road for another couple of minutes.{/i}"
+            n "{i}You see the vast grassy hills with some horses on them, stalls and barns, and riding rings out of the window.{/i}"
+            n "{i}Soon enough, the truck parks and the main office building is in your view.{/i}"
+            n "{i}You climb out and walk into the office.{/i}"
+            n "{i}A young woman is sitting behind the desk with a cheerful expression on her face.{/i}"
+            kaia "Hello! Are you the new boarder, [pn]? I'm Kaia by the way."
+            player "Yes, I am! It's nice to finally meet you."
+            kaia "The pleasure is all mine! Did you bring your horse?"
+            player "I did and [hsfl] is waiting in the parking lot as we speak."
+            kaia "Perfect! I'll meet you in the parking lot and I can show you [hsfl] new stall!"
+            n "{i}I walk out of the door just as Kaia gets up and stride over to the trailer, where Shelley is opening it and putting a halter on [hn].{/i}"
+            horse "{i}*whinny*{/i}"
 
 
 
