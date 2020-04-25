@@ -18,6 +18,7 @@ define mere = Character("Meredith")
 #sfc = subject form with capital at beginning (She, He, They)
 #sfl = subject form in all lowercase (she, he, they)
 #pf = possessive form (her, his, their)
+#pfc = possessive form with capital at beginning (Her, His, Their)
 #verb (is, are)
 #of = object form (her, him, them)
 #add an 'h' in front of every pronoun-form to refer to the horse
@@ -84,16 +85,24 @@ label start:
     shell "These horses are twins! They're names are Rosie and Dante but you are free to change the name of whichever one you choose."
 
     menu:
-        shell "Which horse will you adopt?"
+        shell "Which horse do you want to adopt?"
 
         "Rosie":
             $ hsfc = "She"
             $ hsfl = "she"
             $ hverb = "is"
             $ hpf = "her"
+            $ hpfc = "Her"
             $ hof = "her"
 
             shell "All right!"
+            shell "Why don't you take [hof] on a test ride and see what you think?"
+            n "{i}Shelley prepares Rosie's tack and you mount [hof].{/i}"
+            n "{i}She then points you to a riding ring nearby and goes over to open the gate for you.{/i}"
+            n "{i}You spend quite a bit of time riding around in the ring with Rosie.{/i}"
+            n "{i}[hpfc] trot is a little bouncy but it's nothing you can't handle. [hpfc] canter feels amazing!{/i}"
+            n "{i}After your test ride is over, you ride out of the gate and dismount.{/i}"
+            n "{i}You hold onto one rein as you stand next to Shelley.{/i}"
             shell "I'll get all the papers ready and I just have a few questions for you."
             n "{i}She heads back to the office and comes back with some papers.{/i}"
             shell "First of all, are you aware that it is within our legal ability to seize your horse if you do not take care of her?"
@@ -124,6 +133,13 @@ label start:
             $ hof = "him"
 
             shell "All right!"
+            shell "Why don't you take [hof] on a test ride and see what you think?"
+            n "{i}Shelley prepares Dante's tack and you mount [hof].{/i}"
+            n "{i}She then points you to a riding ring nearby and goes over to open the gate for you.{/i}"
+            n "{i}You spend quite a bit of time riding around in the ring with Dante.{/i}"
+            n "{i}[hpfc] trot is a little bouncy but it's nothing you can't handle. [hpfc] canter feels amazing!{/i}"
+            n "{i}After your test ride is over, you ride out of the gate and dismount.{/i}"
+            n "{i}You hold onto one rein as you stand next to Shelley.{/i}"
             shell "I'll get all the papers ready and I just have a few questions for you."
             n "{i}She heads back to the office and comes back with some papers on a clipboard and a pen.{/i}"
             shell "First of all, are you aware that it is within our legal ability to seize your horse if you do not take care of him?"
@@ -141,7 +157,7 @@ label start:
                         $ hn = "Merlin"
 
                     if hn in jojo_names:
-                        dev "Niicceee!"
+                        dev "Nice!"
                 
                 "No.":
                     $ hn = "Dante"
@@ -173,8 +189,12 @@ label start:
             kaia "The pleasure is all mine! Did you bring your horse?"
             player "I did and [hsfl] is waiting in the parking lot as we speak."
             kaia "Perfect! I'll meet you in the parking lot and I can show you [hsfl] new stall!"
-            n "{i}I walk out of the door just as Kaia gets up and stride over to the trailer, where Shelley is opening it and putting a halter on [hn].{/i}"
+            n "{i}I walk out of the door just as Kaia gets up and strides over to the trailer, where Shelley is opening it and putting a halter on [hn].{/i}"
             horse "{i}*whinny*{/i}"
+            shell "That's a good horse!"
+            shell "Ah! [pn], there you are!"
+            shell "Your horse is ready to see [hpf] new stall!"
+            n "{i}She hands the lead rope to you with a gentle smile.{/i}"
 
 
 
