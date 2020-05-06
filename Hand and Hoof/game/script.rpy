@@ -29,18 +29,27 @@ define jojo_names = ["Jotaro", "Kakyoin", "Kakyouin", "Jojo", "Josuke", "Jousuke
 #Character images
 
 
+#Background images
+
+
 #Stats
 define money = 3000
+define mon_made = 0 #money you make through the course of the game
 define char = 1 #charisma: more likely to recieve a positive interaction from NPCs
-define art = 1 #artistic ability: higher quality drawings/paintings/photos and more flexibility for expressing yourself 
+define bond = 1 #bond: how much your horse trusts you; bonus to your horsemanship skills; can be gained through riding and/or taking care of your horse
 define horship = 1 #horsemanship: better equestrian skills; you understand your horse more
 define stab_care = False #stable care: a stablehand takes care of your horse every morning and evening, leaving you with more time for other activities
-define ar_pri = art * 3
+define new_follow = horship * char #amount of followers you gain from social media posts
+define tot_follow = 0 #amount of followers you have total
+define income = 10 * tot_follow #once you hit 40 followers on social media, you gain daily income
+
+#Facts List
+define rand_post = renpy.random.choice(["Curry combing is most effective when you brush your horse's coat in circles opposite of the direction of the horse's hair.", "Ragwort is a tall plants with bright yellow flowers. This plant will fatally poison the livers of horses who eat them so make sure to remove them from the range of any of your equine friends."])
 
 # The game starts here.
 
 label start:
-
+label pre_chap1:
     #asking player for name
     #pfn = player first name
     #pmn = player middle name
@@ -51,9 +60,6 @@ label start:
 
         "Charisma":
             $ char = 3
-        
-        "Artistic ability":
-            $ art = 3
         
         "Horsemanship": 
             $ horship = 3
@@ -90,6 +96,7 @@ label start:
             $ pf = "his"
             $ of = "him"
 
+label chap1:
     # Chapter 1: 
     
     shell "Hi there! I haven't seen you here before. Are you new to this town?"
@@ -252,8 +259,11 @@ label start:
             n "{i}You pull out a check and a pen and scribbe the details you need.{/i}"
             n "{i}You hand it to Kaia, who inspects it before nodding of approval.{/i}"
             kaia "All set! Starting now, we will take care of your [hn] for you!"
+            $ stab_care = True
+            $ money -= 1000
 
         "No":
+            $stab_care = False
     
     lune "Anyway, I got to go! There are many more horses who need my services."
     lune "I'll see you around, [pn]?"
@@ -288,16 +298,191 @@ label start:
     n "{i}Perhaps he is trying to silently intimidate you into leaving the arena or maybe he's just uncomfortably curious about the newcomer.{/i}"
     n "{i}Regardless, you have a right to be here as much as he does so you and [hn] trot on, winding up to canter.{/i}"
     n "{i}As you canter along the rail, getting off of it when you need to pass the other rider, your eyes keep darting back and forth to a cross rail jump in the middle of the arena.{/i}"
-    '''
+    
     menu: 
         "Attempt jumping that cross rail?"
 
         "Yes":
-    '''
+            if horship < 3:
+                $ jump_success = renpy.random.ranint(1,100)
+                if $ jump_success < 11:
+                    $ jump_successful = True
+                    jump successful_jump
+                else:
+                    $ jump_successful = False
+                    jump unsucc_jump
+            else:
+                $ jump_successful = True
+                jump successful_jump
+        "No":
+            jump no_jump
     
-label successful_jump:
-    n "{i}You direct [hn] head on in the direction of the cross rail.{/i}"
+    label no_jump:
+        n "{i}You continue your trotting and cantering exercises, often steering off from the rail when necessary to avoid crashing into the other rider.{/i}"
+        n "{i}After a while, you see the other rider slow down then stop.{/i}"
+        jump raki_exit
+
+    label successful_jump:
+        $ horship += 2
+        n "{i}You direct [hn] head on in the direction of the cross rail.{/i}"
+        n "{i}Look directly ahead of you and lift yourself off of the saddle ahead of time, you remember.{/i}"
+        n "{i}Once you two arrive right at the cross rails, you can feel [hn] lift [hpf] front legs.{/i}"
+        n "{i}Fortunately, the amount of leaning forward in your saddle is sufficient to keep you balanced.{/i}"
+        n "{i}You scale back on your lean a little bit as your horse's hooves reach the ground again and canter onward.{/i}"
+        n "{i}You steer [hn] away from the other jumps and ask [hof] to slow down to a trot.{/i}"
+        jump raki_react
+
+    label unsucc_jump:
+        $ horship += 1
+        n "{i}You direct [hn] head on in the direction of the cross rail.{/i}"
+        n "{i}You look right at the jump itself, even as [hn] draws nearer and nearer to it.{/i}"
+        n "{i}You continue absorbing the motion of the canter in your seat as well.{/i}"
+        n "{i}Only right when [hn] is lifting [hpf] hooves off of the ground do you lean forward.{/i}"
+        n "{i}The landing feels a bit jarring and you lean more towards the front than necessary.{/i}"
+        n "{i}Next thing you know, your feet slip out of their stirrups, the laws of physics prodding your form sideways.{/i}"
+        n "{i}You grab a bit of [hn]'s mane in vain, letting go of it as soon as most of your body slips onto one side.{/i}"
+        n "{i}Ultimately, you fall onto the arena padding, your horse slowing to a trot then walk and circling back to you.{/i}"
+
+    label raki_react:
+        if jump_successful  == True:
+            n "{i}You notice that the other rider is at a standstill.{/i}"
+            n "{i}Undoubtedly, he is looking right at you with his piercing gaze.{/i}"
+            n "{i}However, his lips are curving into a small smile.{/i}"
+            n "{i}Whether this smile is genuine congrats of your little victory or a mockery of how amusingly unimpressive your attempt was is undiscernable.{/i}"
+            raki "{i}Impressive.{/i}"
+            menu: 
+                "{i}With a response like that, it's even harder to tell.{/i}"
+
+                "Was that supposed to be sarcastic?":
+                    n "{i}The other rider looks a bit taken aback by your response.{/i}"
+                    n "{i}Uh oh. Perhaps he meant to be sincere after all.{/i}"
+                    n "{i}His lips curl into something like a frown.{/i}"
+                    if char == 3:
+                        player "Wait! I'm sorry. I take that back!"
+                        player "Thanks. I don't think it's that impressive though."
+                        raki "No worries. You are not the first person to mix up my ironic statements with my genuine ones after all."
+                        n "{i}You swear that for a second, you can see a sad gleam in his eyes.{/i}"
+                        n "{i}Before you can confirm, he smiles and intensifies his gaze again, clearing it of the emotions on it from seconds ago.{/i}"
+                        jump raki_exit
+                    else:
+                        jump raki_exit
+
+                "Thanks.":
+                    $ char += 1
+                    player "{i}It was only a cross rail though.{/i}"
+                    player "{i}I'm sure you could do much better than me.{/i}"
+                    n "{i}A blank stare washes over his face for a moment.{/i}"
+                    n "{i}Then all too quickly, his expression erupts into a languid countenance.{/i}"
+                    raki "{i}Bold of you to assume I know how to jump.{/i}"
+                    jump raki_exit
+
+        if jump_successful == False:
+            n "{i}You stand up and grab [hn]'s reins.{/i}"
+            n "{i}Fortunately, there happens to be a mounting block nearby so you lead your horse over to it.{/i}"
+            raki "{i}*laughs*{/i} Oh my goodness. Did you even learn how to jump?"
+            n "{i}You look back at the source of the voice to find the other rider's once scarily composed facial expression loosened into a nearly complete smirk.{/i}"
+            menu: 
+                "{i}How do you respond to his reaction?{/i}"
+
+                "Hey, that's rude!":
+                    raki "My apologies then."
+                    jump raki_exit
+                
+                "Well, I got to mess up sometimes to be on the path to success.":
+                    $ char += 1
+                    raki "“I suppose that’s true, but you don’t want that to happen to you too often. {i}*laughs*{/i}"
+                    player "Hopefully it won't."
+                    n "{i}The other rider doesn't say anything. He only smiles in good-humour.{/i}"
+
+    label raki_exit: 
+        n "{i}Then with a subtle swipe of his heels, his horse walks in the direction of the gate.{/i}"
+        n "{i}Once he arrives there, he finds another rider standing outside already opening it.{/i}"
+        n "{i}She lets herself in and the other one out.{/i}"
+        n "{i}She looks in your direction and you recognize her as Kaia!{/i}"
+        n "{i}Kaia approaches you with a gentle but grand smile on her face.{/i}"
+        kaia "So have you gotten to meet Raki?"
+        player "Is he the guy who was just in here with me?"
+        kaia "He is."
+        kaia "Hopefully he didn't give you too much trouble."
+        kaia "He's not the most sociable person in the world, but he's a very nice one once you get to know him."
+        player "I see."
+        kaia "Anyway, Jolyne here has been waiting all day for this ride. {i}*stroke's her horse's mane*{/i}"
+        kaia "So, I'll see you later?"
+        player "Yeah. I was just about to head out."
+        player "See ya!"
+        kaia "Bye!"
+        n "{i}You head towards the gate to open it and let yourself out.{/i}"
+        n "{i}You and [hn] take an easy walk to [hpf] stall.{/i}"
+        n "{i}After untacking your horse, you give [hof] a few affectionate strokes on the neck.{/i}"
+        if stab_care == True:
+            n "{i}Then you head home.{/i}"
+        else:
+            $ bond += 1
+            n "{i}Then you spend some time making sure [hn] has [hpf] feed and water prepared.{/i}"
+            n "{i}Afterwards, you head home.{/i}"
+        n "{i}You arrive at the doorstep of your humble abode.{/i}"
+        menu:
+            "What will you do?"
+
+            "Read {i}The Art of Charm{/i}":
+                n "{i}You pick up this book and sit down to read it.{/i}"
+                if stab_care == True:
+                   $ char += 2
+                else:
+                   $ char += 1
+
+            "Read {i}The Rider's Guide to Everything Equine{/i}":
+                n "{i}You pick up this book and sit down to read it.{/i}"
+                if stab_care == True:
+                   $ horship += 2
+                else:
+                   $ horship += 1
+
+            "Blog about the equine world.":
+                n "{i}You head to your laptop, log onto YouBlog, and start writing away.{/i}"
+                n "{i}Once you are down writing, the post reads as follows:{/i}"
+                player "{i}[rand_post]{/i}"
+                if stab_care == True: 
+                    player "{i}For more information on this topic. Click on the 'Read more' button!{/i}"
+                    $ new_follow = 2 * new_follow
+                player "{i}I hope you enjoyed reading this!{/i}"
+                $ tot_follow = new_follow
+                n "{i}In the coming minutes after you post your entry, you get the notfication that your profile has gained [new_follow] followers, which makes for a total of [tot_follow] followers!{/i}"
+        n "{i}The sky had been dark for some time now and you feel your tiredness creep onto you.{/i}"
+        n "{i}It is time to go to bed and start a new day.{/i}"
+
+label chap2:
+    label morning:
+        n "{i}The sun rises and its rays permeate throughout your room.{/i}"
+        n "{i}You get up and prepare yourself for the new day ahead.{/i}"
+        menu:
+        "What will you do?"
+
+        "Read {i}The Art of Charm{/i}":
+            n "{i}You pick up this book and sit down to read it.{/i}"
+            if stab_care == True:
+                $ char += 2
+            else:
+                $ char += 1
+
+        "Read {i}The Rider's Guide to Everything Equine{/i}":
+            n "{i}You pick up this book and sit down to read it.{/i}"
+            if stab_care == True:
+                $ horship += 2
+            else:
+                $ horship += 1
+
+        "Blog about the equine world.":
+            n "{i}You head to your laptop, log onto YouBlog, and start writing away.{/i}"
+            n "{i}Once you are down writing, the post reads as follows:{/i}"
+            player "{i}[rand_post]{/i}"
+            if stab_care == True: 
+                player "{i}For more information on this topic. Click on the 'Read more' button!{/i}"
+                $ new_follow = 2 * new_follow
+            player "{i}I hope you enjoyed reading this!{/i}"
+            $ tot_follow = new_follow
+            n "{i}In the coming minutes after you post your entry, you get the notfication that your profile has gained [new_follow] followers, which makes for a total of [tot_follow] followers!{/i}"
+        n "{i}It is about time to see [hn] so you head on over to Green Rain Ranch.{/i}"    
 
 
-
-    return
+return

@@ -1,26 +1,26 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 32, in script
-    $ pfn = renpy.strip()
-  File "game/script.rpy", line 32, in <module>
-    $ pfn = renpy.strip()
-AttributeError: 'module' object has no attribute 'strip'
+  File "game/script.rpy", line 44, in script
+    define income = 10 * followers #once you hit 40 followers on social media, you gain daily income
+  File "game/script.rpy", line 44, in <module>
+    define income = 10 * followers #once you hit 40 followers on social media, you gain daily income
+NameError: name 'followers' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 32, in script
-    $ pfn = renpy.strip()
-  File "C:\Users\Bridget\Desktop\renpy-7.3.5-sdk\renpy\ast.py", line 914, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "C:\Users\Bridget\Desktop\renpy-7.3.5-sdk\renpy\python.py", line 2028, in py_exec_bytecode
-    exec bytecode in globals, locals
-  File "game/script.rpy", line 32, in <module>
-    $ pfn = renpy.strip()
-AttributeError: 'module' object has no attribute 'strip'
+  File "game/script.rpy", line 44, in script
+    define income = 10 * followers #once you hit 40 followers on social media, you gain daily income
+  File "C:\Users\Bridget\Desktop\renpy-7.3.5-sdk\renpy\ast.py", line 2108, in execute
+    value = renpy.python.py_eval_bytecode(self.code.bytecode)
+  File "C:\Users\Bridget\Desktop\renpy-7.3.5-sdk\renpy\python.py", line 2052, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/script.rpy", line 44, in <module>
+    define income = 10 * followers #once you hit 40 followers on social media, you gain daily income
+NameError: name 'followers' is not defined
 
 Windows-8-6.2.9200
 Ren'Py 7.3.5.606
 Hand and Hoof 1.0
-Fri Apr 10 23:49:28 2020
+Mon May 04 17:41:13 2020

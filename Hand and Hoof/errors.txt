@@ -2,9 +2,37 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 118: expected statement.
-    "Dante":
-           ^
+File "game/script.rpy", line 371: expected statement.
+    char += 1
+         ^
+
+File "game/script.rpy", line 392: expected statement.
+    char += 1
+         ^
+
+File "game/script.rpy", line 420: expected statement.
+    bond += 1
+         ^
+
+File "game/script.rpy", line 430: expected statement.
+    char += 2
+         ^
+
+File "game/script.rpy", line 432: expected statement.
+    char += 1
+         ^
+
+File "game/script.rpy", line 437: expected statement.
+    horship += 2
+            ^
+
+File "game/script.rpy", line 439: expected statement.
+    horship += 1
+            ^
+
+File "game/script.rpy", line 451: Say menuitems and captions may not exist in the same menu.
+    n "{i}The sky had been dark for some time now and you feel your tiredness creep onto you.{/i}"
+                                                                                                  ^
 
 Ren'Py Version: Ren'Py 7.3.5.606
-Sat Apr 11 11:59:07 2020
+Mon May 04 17:39:17 2020
