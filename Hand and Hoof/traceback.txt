@@ -1,26 +1,24 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 44, in script
-    define income = 10 * followers #once you hit 40 followers on social media, you gain daily income
-  File "game/script.rpy", line 44, in <module>
-    define income = 10 * followers #once you hit 40 followers on social media, you gain daily income
-NameError: name 'followers' is not defined
+  File "game/script.rpy", line 496, in script
+    if $ stab_care == False:
+SyntaxError: invalid syntax (game/script.rpy, line 496)
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 44, in script
-    define income = 10 * followers #once you hit 40 followers on social media, you gain daily income
-  File "C:\Users\Bridget\Desktop\renpy-7.3.5-sdk\renpy\ast.py", line 2108, in execute
-    value = renpy.python.py_eval_bytecode(self.code.bytecode)
-  File "C:\Users\Bridget\Desktop\renpy-7.3.5-sdk\renpy\python.py", line 2052, in py_eval_bytecode
-    return eval(bytecode, globals, locals)
-  File "game/script.rpy", line 44, in <module>
-    define income = 10 * followers #once you hit 40 followers on social media, you gain daily income
-NameError: name 'followers' is not defined
+  File "game/script.rpy", line 496, in script
+    if $ stab_care == False:
+  File "C:\Users\Bridget\Desktop\renpy-7.3.5-sdk\renpy\ast.py", line 1832, in execute
+    if renpy.python.py_eval(condition):
+  File "C:\Users\Bridget\Desktop\renpy-7.3.5-sdk\renpy\python.py", line 2057, in py_eval
+    code = py_compile(code, 'eval')
+  File "C:\Users\Bridget\Desktop\renpy-7.3.5-sdk\renpy\python.py", line 692, in py_compile
+    raise e
+SyntaxError: invalid syntax (game/script.rpy, line 496)
 
 Windows-8-6.2.9200
 Ren'Py 7.3.5.606
 Hand and Hoof 1.0
-Mon May 04 17:41:13 2020
+Fri May 08 21:15:45 2020

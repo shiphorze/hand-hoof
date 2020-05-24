@@ -30,7 +30,7 @@ define jojo_names = ["Jotaro", "Kakyoin", "Kakyouin", "Jojo", "Josuke", "Jousuke
 
 
 #Background images
-
+image shell_office = "shell_office_png.png"
 
 #Stats
 define money = 3000
@@ -45,6 +45,12 @@ define income = 10 * tot_follow #once you hit 40 followers on social media, you 
 
 #Facts List
 define rand_post = renpy.random.choice(["Curry combing is most effective when you brush your horse's coat in circles opposite of the direction of the horse's hair.", "Ragwort is a tall plants with bright yellow flowers. This plant will fatally poison the livers of horses who eat them so make sure to remove them from the range of any of your equine friends."])
+
+#Tasks List
+define r1 = "Need someone to take video while I train."
+define l1 = "Going out on a trail ride. Need a buddy to ride with me for safety reasons."
+define k1 = "Have you seen my leadrope? It’s made of polyester and it’s the color pink."
+define task_list = [r1, l1, k1]
 
 # The game starts here.
 
@@ -98,6 +104,7 @@ label pre_chap1:
 
 label chap1:
     # Chapter 1: 
+    scene shell_office
     
     shell "Hi there! I haven't seen you here before. Are you new to this town?"
     player "Yup!"
@@ -405,6 +412,8 @@ label chap1:
         kaia "He is."
         kaia "Hopefully he didn't give you too much trouble."
         kaia "He's not the most sociable person in the world, but he's a very nice one once you get to know him."
+        kaia "Also if you can spare time to help out our staff and riders, check out the bulletin board to see what tasks need to be done."
+        kaia "They will always reward you with something in return."
         player "I see."
         kaia "Anyway, Jolyne here has been waiting all day for this ride. {i}*stroke's her horse's mane*{/i}"
         kaia "So, I'll see you later?"
@@ -456,33 +465,59 @@ label chap2:
         n "{i}The sun rises and its rays permeate throughout your room.{/i}"
         n "{i}You get up and prepare yourself for the new day ahead.{/i}"
         menu:
-        "What will you do?"
+            "What will you do?"
 
-        "Read {i}The Art of Charm{/i}":
-            n "{i}You pick up this book and sit down to read it.{/i}"
-            if stab_care == True:
-                $ char += 2
-            else:
-                $ char += 1
+            "Read {i}The Art of Charm{/i}":
+                n "{i}You pick up this book and sit down to read it.{/i}"
+                if stab_care == True:
+                    $ char += 2
+                else:
+                    $ char += 1
 
-        "Read {i}The Rider's Guide to Everything Equine{/i}":
-            n "{i}You pick up this book and sit down to read it.{/i}"
-            if stab_care == True:
-                $ horship += 2
-            else:
-                $ horship += 1
+            "Read {i}The Rider's Guide to Everything Equine{/i}":
+                n "{i}You pick up this book and sit down to read it.{/i}"
+                if stab_care == True:
+                    $ horship += 2
+                else:
+                    $ horship += 1
 
-        "Blog about the equine world.":
-            n "{i}You head to your laptop, log onto YouBlog, and start writing away.{/i}"
-            n "{i}Once you are down writing, the post reads as follows:{/i}"
-            player "{i}[rand_post]{/i}"
-            if stab_care == True: 
-                player "{i}For more information on this topic. Click on the 'Read more' button!{/i}"
-                $ new_follow = 2 * new_follow
-            player "{i}I hope you enjoyed reading this!{/i}"
-            $ tot_follow = new_follow
-            n "{i}In the coming minutes after you post your entry, you get the notfication that your profile has gained [new_follow] followers, which makes for a total of [tot_follow] followers!{/i}"
-        n "{i}It is about time to see [hn] so you head on over to Green Rain Ranch.{/i}"    
+            "Blog about the equine world.":
+                n "{i}You head to your laptop, log onto YouBlog, and start writing away.{/i}"
+                n "{i}Once you are down writing, the post reads as follows:{/i}"
+                player "{i}[rand_post]{/i}"
+                if stab_care == True: 
+                    player "{i}For more information on this topic. Click on the 'Read more' button!{/i}"
+                    $ new_follow = 2 * new_follow
+                player "{i}I hope you enjoyed reading this!{/i}"
+                $ tot_follow = new_follow
+                n "{i}In the coming minutes after you post your entry, you get the notfication that your profile has gained [new_follow] followers, which makes for a total of [tot_follow] followers!{/i}"
+        n "{i}It is about time to see [hn] so you head on over to Green Rain Ranch.{/i}"
+        label at_ranch: 
+            n "{i}You arrive at the ranch. [hn] greets you with a pleasant nicker.{/i}"    
+            if stab_care == False: 
+                $ bond += 1
+                n "{i}You feed and groom your horse, making [hof] feel very happy!{/i}"
+            menu: 
+                "What will you do?"
+
+                "Go for a ride":
+                    $ bond += 1
+                    n "{i}You groom and tack up [hn].{/i}"
+                
+                "Go into the office":
+                    n "{i}You walk across the parking lot and into the office.{/i}"
+                    n "{i}You turn around to see the bulletin board with various notes pinned to it.{/i}"
+                    menu: 
+                        "Which task will you accept?"
+
+                        "[r1]":
+                            raki "{i}[r1]{/i}"
+
+                        "[l1]":
+                            lune "{i}[l1]{/i}"
+                        
+                        "[k1]":
+                            kaia "{i}[k1]{/i}"
 
 
 return
